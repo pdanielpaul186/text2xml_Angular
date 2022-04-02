@@ -1,0 +1,71 @@
+<div class="container">
+  <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Text File Input</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="container">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="full-width">
+              <mat-select placeholder="Template Name" formControlName="templateName" [(ngModel)]='templates'>
+                <mat-option *ngFor="let template of templateList.data" [value]="template.abbrevTemplate">
+                  {{ template.nameTemplate }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addressForm.controls['templateName'].hasError('required')">
+                template name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>  
+          <div class="col">
+            <mat-form-field class="full-width">
+              <input matInput type="number" placeholder="Number of Fields" formControlName="fields" [(ngModel)]='fields'>
+            </mat-form-field>
+          </div>
+          <div class="col" *ngIf="templates == 'newTemplate'">
+            <mat-form-field class="full-width">
+              <input type="text" matInput placeholder="Name" formControlName="nameTemplate" [(ngModel)]='nameTemplate'>
+            </mat-form-field>
+            <mat-error *ngIf="addressForm.controls['nameTemplate'].hasError('required')">
+              template name is <strong>required</strong>
+            </mat-error>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col" *ngIf="templates == 'newTemplate'">
+            <mat-form-field class="full-width">
+              <input type="text" matInput placeholder="Abbreviation" formControlName="abbrevTemplate" [(ngModel)]='abbrevTemplate'>
+            </mat-form-field>
+            <mat-error *ngIf="addressForm.controls['abbrevTemplate'].hasError('required')">
+              Abbrivation of the template is <strong>required</strong>
+            </mat-error>
+          </div>
+          <div class="col">
+            <mat-form-field class="full-width">
+              <textarea matInput placeholder="Description" formControlName="description" [(ngModel)]='description' style="resize: none;"></textarea>
+              <mat-error *ngIf="addressForm.controls['description'].hasError('required')">
+                Description is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <input type="file" placeholder="Upload text File" class="fileUpload" #myfile name="myfile" (change)='handleFileInput($event);'>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-radio-group formControlName="typeOfConversion" [(ngModel)]="toC">
+              <mat-radio-button value="basic">Basic Conversion</mat-radio-button>
+              <mat-radio-button value="advanced" disabled>Advanced delimitters File conversion</mat-radio-button>
+              <mat-radio-button value="others" disabled>Other Delimitters</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>

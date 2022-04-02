@@ -1,0 +1,39 @@
+<div class="container">
+  <form [formGroup]="addressForm" novalidate (ngSubmit)="onSubmit()">
+    <mat-card class="shipping-card">
+      <mat-card-header>
+        <mat-card-title>Download Converted File</mat-card-title>
+      </mat-card-header>
+      <mat-card-content class="container">
+        <div class="row">
+          <div class="col">
+            <mat-form-field class="half-width">
+              <mat-select placeholder="Template Name" formControlName="templateName" [(ngModel)]='nameTemplate'>
+                <mat-option *ngFor="let template of templateList.data" [value]="template.abbrevTemplate">
+                  {{ template.nameTemplate }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="addressForm.controls['templateName'].hasError('required')">
+                Template name is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-radio-group formControlName="fileTypes" [(ngModel)] = 'fileTypes'>
+              <mat-radio-button value="json">Json File</mat-radio-button>
+              <mat-radio-button value="xml">XML File</mat-radio-button>
+              <mat-radio-button value="dbConn" disabled>Connect Database</mat-radio-button>
+              <mat-radio-button value="excel" disabled>Excel File</mat-radio-button>
+              <mat-radio-button value='others' disabled>Others</mat-radio-button>
+            </mat-radio-group>
+          </div>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-raised-button color="primary" type="submit">Submit</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+</div>
