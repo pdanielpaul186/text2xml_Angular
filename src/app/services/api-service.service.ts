@@ -10,5 +10,5 @@ export class ApiServiceService {
 }
 
 export enum ApiPaths {
-  baseURL = 'https://text2xml-backend.herokuapp.com/'
+  baseURL = 'http://10.255.0.59:4300/'
 }
